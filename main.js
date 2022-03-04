@@ -5,8 +5,8 @@ const boardWidth = 18;
 const boardHeight = 15;
 
 // 플레이어
-let moveDir = 'right';
-let currentDir = 'right'
+let moveDir;
+let currentDir;
 let snake = [];
 let newTailPos;
 
@@ -29,6 +29,16 @@ let isGameOver = false;
 
 function init() {
     window.onkeydown = (event) => {
+        if (event.keyCode == 39 && currentDir !== 'left') {
+            moveDir = 'right';
+        } else if (event.keyCode == 37 && currentDir !== 'right') {
+            moveDir = 'left';
+        } else if (event.keyCode == 38 && currentDir !== 'down') {
+            moveDir = 'up';
+        } else if (event.keyCode == 40 && currentDir !== 'up') {
+            moveDir = 'down';
+        }
+
         if (!isGameStart) {
             if (event.keyCode == 39 ||
                 event.keyCode == 37 ||
@@ -39,16 +49,6 @@ function init() {
             }
         } else if (isGameStart && isGameOver && event.keyCode == 82) {
             location.reload();
-        }
-
-        if (event.keyCode == 39 && currentDir !== 'left') {
-            moveDir = 'right';
-        } else if (event.keyCode == 37 && currentDir !== 'right') {
-            moveDir = 'left';
-        } else if (event.keyCode == 38 && currentDir !== 'down') {
-            moveDir = 'up';
-        } else if (event.keyCode == 40 && currentDir !== 'up') {
-            moveDir = 'down';
         }
     }
 
