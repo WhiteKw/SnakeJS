@@ -23,6 +23,9 @@ let bestScore;
 const backCover = document.querySelector('.backgroundCover');
 const modal = backCover.querySelector('.modal');
 
+// Audio
+const eatAudio = new Audio('./Audios/eat.ogg');
+
 let interval;
 let isGameStart = false;
 let isGameOver = false;
@@ -153,32 +156,33 @@ function getApple() {
     snake[snake.length] = newTailPos;
     currentScore = currentScore + 10;
     currentScoreUI.innerText = currentScore;
+    eatAudio.play();
     createNewApple();
 }
 
 function createNewApple() {
     cellArray[applePos[0]][applePos[1]].classList.remove('apple');
 
-    let filterArray = [];
+    // let filterArray = [];
 
-    let idx = 0;
-    cellArray.forEach(data => {
-        let overlap = false;
-        
-        snake.forEach(snakeBody => {
-            if (JSON.stringify(data) == JSON.stringify(snakeBody)) {
-                overlap = true;
-            }
-        });
+    // let idx = 0;
+    // cellArray.forEach(data => {
+    //     let overlap = false;
 
-        if (!overlap) {
-            filterArray[idx] = data;
-            idx++;
-            console.log(JSON.stringify(data));
-        }
-    });
+    //     snake.forEach(snakeBody => {
+    //         if (JSON.stringify(data) == JSON.stringify(snakeBody)) {
+    //             overlap = true;
+    //         }
+    //     });
 
-    console.log(filterArray);
+    //     if (!overlap) {
+    //         filterArray[idx] = data;
+    //         idx++;
+    //         console.log(JSON.stringify(data));
+    //     }
+    // });
+
+    // console.log(filterArray);
 
 
     let posX = Math.floor(Math.random() * (boardWidth - 1));
