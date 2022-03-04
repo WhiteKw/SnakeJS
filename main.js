@@ -75,6 +75,8 @@ function createBoard() {
             cellArray[j][i] = cell;
         }
     }
+
+    console.log(cellArray);
 }
 
 function update() {
@@ -156,6 +158,29 @@ function getApple() {
 
 function createNewApple() {
     cellArray[applePos[0]][applePos[1]].classList.remove('apple');
+
+    let filterArray = [];
+
+    let idx = 0;
+    cellArray.forEach(data => {
+        let overlap = false;
+        
+        snake.forEach(snakeBody => {
+            if (JSON.stringify(data) == JSON.stringify(snakeBody)) {
+                overlap = true;
+            }
+        });
+
+        if (!overlap) {
+            filterArray[idx] = data;
+            idx++;
+            console.log(JSON.stringify(data));
+        }
+    });
+
+    console.log(filterArray);
+
+
     let posX = Math.floor(Math.random() * (boardWidth - 1));
     let posY = Math.floor(Math.random() * (boardHeight - 1));
 
@@ -183,7 +208,7 @@ function gameOver() {
 
 function gameStart() {
     backCover.style.display = 'none';
-    interval = setInterval(update, 100);
+    interval = setInterval(update, 75);
 }
 
 function setCookie(name, value) {
